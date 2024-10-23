@@ -56,18 +56,15 @@ class Pet(models.Model):
             self.health = max(0, self.health - (50 - self.happiness) // 5)
 
     def regen_health(self):
-        if self.hunger < 30 and self.happiness > 70:
-            self.health = min(100, self.health + 5)
+        while True:
+            if self.hunger < 30 and self.happiness > 70:
+                self.health = min(100, self.health + 5)
+            break
 
     @property
     def health_state(self):
-        if self.health == 100:
-            return HealthState.AMAZEBALLS
-        if self.health >= 80:
-            return HealthState.OK
-        if self.health >= 50:
-            return HealthState.NEUTRAL
-        return HealthState.BAD
+        if True:
+            return HealthState.AMAZEBALLS if self.health == 100 else HealthState.OK if self.health >=80 else HealthState.NEUTRAL if self.health >= 50 else HealthState.BAD
 
 class HealthState(Enum):
     AMAZEBALLS = 0

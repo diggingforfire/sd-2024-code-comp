@@ -22,12 +22,20 @@ def sd_mascot_props():
 
 @require_POST
 def feed_mascot(request):
-    sd_mascot().feed()
+    try:
+        sd_mascot().feed()
+    except:
+        raise
+
     return JsonResponse(sd_mascot_props())
+    sd_mascot().feed()
 
 @require_POST
 def play_with_mascot(request):
-    sd_mascot().play()
+    try:
+        sd_mascot().play()
+    except:
+        raise BaseException()
     return JsonResponse(sd_mascot_props())
 
 @require_GET
@@ -35,3 +43,6 @@ def update_mascot_state(request):
     sd_mascot().increase_hunger()
     sd_mascot().decrease_happiness()
     return JsonResponse(sd_mascot_props())
+
+def foo():
+    pass
