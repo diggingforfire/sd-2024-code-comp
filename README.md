@@ -28,4 +28,6 @@ The Astron Software Delivery Group has a new mascot: McFloofz. He is very needy 
 * Changes pushed to your branch will be analyzed with Sonarqube. Only Python code in the `pet` folder will be analyzed (HTML and CSS are excluded). Analysis results are visible here: https://sonarcloud.io/project/overview?id=diggingforfire-github_sd-day-2024-tamagotchi-edition
 * For inspiration, the following ruleset with Python rules will be used for analysis: https://sonarcloud.io/organizations/diggingforfire-github/rules?qprofile=AVzwrtCqgIkbjTX1x8Iv&activation=true. Try to implement as many as you can without breaking the existing tests. Gotta catch em all!
 * All existing tests cannot be changed and they must pass. Beyond this, feel free to make any changes!
-* Starting tips:
+* Two examples to get you started:
+    - 1: In `models.py` on line 64, change `100` to `100.0`. This will be produce the issue [Floating point numbers should not be tested for equality](https://sonarcloud.io/organizations/diggingforfire-github/rules?activation=true&open=python%3AS1244&q=floating&qprofile=AVzwrtCqgIkbjTX1x8Iv&tab=how_to_fix)
+    - 2 
