@@ -4,6 +4,7 @@ from django.views.decorators.http import require_POST, require_GET
 
 from .models import Pet
 
+@require_GET
 def mascot_index(request):
     return render(request, 'pet/status.html', { 'pet': sd_mascot()})
 
