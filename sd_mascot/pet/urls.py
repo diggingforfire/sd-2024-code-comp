@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import pet_status, feed_pet, play_with_pet, get_pet_stats
+from .views import mascot_index, feed_mascot, play_with_mascot, get_mascot_state
 
 urlpatterns = [
-    path('', pet_status, name='pet_status'),
-    path('feed/', feed_pet, name='feed_pet'),
-    path('play/', play_with_pet, name='play_with_pet'),
-    path('get_pet_stats/', get_pet_stats, name='get_pet_stats'),
+    path('', mascot_index, name='mascot_index'),
+    path('feed/', feed_mascot, name='feed_mascot'),
+    path('play/', play_with_mascot, name='play_with_mascot'),
+    path('get_state/', get_mascot_state, name='get_mascot_state'),
 ]

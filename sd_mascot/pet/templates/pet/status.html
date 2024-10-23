@@ -54,6 +54,10 @@
             font-size: 3em;
             margin-bottom: 20px;
         }
+
+        #feed-btn {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -65,9 +69,9 @@
             🐶  <!-- Placeholder for your pet -->
         </div>
 
-        <p>Health: <span id="health">{{ pet.health }}</span> / 100</p>
-        <p>Hunger: <span id="hunger">{{ pet.hunger }}</span> / 100</p>
-        <p>Happiness: <span id="happiness">{{ pet.happiness }}</span> / 100</p>
+        <p><strong>Health:</strong> <span id="health">{{ pet.health }}</span> / 100</p>
+        <p><strong>Hunger:</strong> <span id="hunger">{{ pet.hunger }}</span> / 100</p>
+        <p><strong>Happiness:</strong> <span id="happiness">{{ pet.happiness }}</span> / 100</p>
 
         <h2>Actions</h2>
         <button id="feed-btn">Feed {{ pet.name }}</button>
@@ -104,10 +108,10 @@
                 }
             }
 
-            // Poll the server every 5 seconds to get updated pet stats
-            function pollPetStats() {
+            // Poll the server every second to get updated mascot stats
+            function pollMascotState() {
                 $.ajax({
-                    url: "{% url 'get_pet_stats' %}",
+                    url: "{% url 'get_mascot_state' %}",
                     method: 'GET',
                     success: function(response) {
                         updatePetStats(response);
@@ -115,13 +119,13 @@
                 });
             }
 
-            // Start polling for updates every 5 seconds
-            setInterval(pollPetStats, 1000);
+            // Start polling for updates every second
+            setInterval(pollMascotState, 1000);
 
             // Feed the pet using AJAX
             $('#feed-btn').click(function() {
                 $.ajax({
-                    url: "{% url 'feed_pet' %}",
+                    url: "{% url 'feed_mascot' %}",
                     method: 'POST',
                     data: {
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
@@ -135,7 +139,7 @@
             // Play with the pet using AJAX
             $('#play-btn').click(function() {
                 $.ajax({
-                    url: "{% url 'play_with_pet' %}",
+                    url: "{% url 'play_with_mascot' %}",
                     method: 'POST',
                     data: {
                         'csrfmiddlewaretoken': '{{ csrf_token }}'
