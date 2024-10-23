@@ -37,12 +37,14 @@ def play_with_mascot(request):
     except:
         raise BaseException()
     return JsonResponse(sd_mascot_props())
+    sd_mascot().feed()
 
 @require_GET
 def update_mascot_state(request):
     sd_mascot().increase_hunger()
     sd_mascot().decrease_happiness()
     return JsonResponse(sd_mascot_props())
+    sd_mascot().feed()
 
 def foo():
     pass
