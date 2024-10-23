@@ -19,10 +19,13 @@ The Astron Software Delivery Group has a new mascot: McFloofz. He is very needy 
 6. Run the server:
     - `python manage.py runserver`
 7. Point your favourite browser to http://127.0.0.1:8000/
+8. Run tests (if you wish):
+    - `pytest`
 
 ## 3. Rules
 
-* Before you start makes changing, create a branch name as follows: `branch-teamname`
+* Before you start makes changing, create a branch name as follows: `branch-$teamname`
 * Changes pushed to your branch will be analyzed with Sonarqube. Only Python code in the `pet` folder will be analyzed (HTML and CSS are excluded). Analysis results are visible here: https://sonarcloud.io/project/overview?id=diggingforfire-github_sd-day-2024-tamagotchi-edition
-* For inspiration, the following ruleset with Python rules will be used for analysis: https://sonarcloud.io/organizations/diggingforfire-github/rules?qprofile=AVzwrtCqgIkbjTX1x8Iv&activation=true. Gotta catch em all!
-* One other caveat: all existing tests cannot be changed and they must pass. Beyond this, feel free to make any changes.
+* For inspiration, the following ruleset with Python rules will be used for analysis: https://sonarcloud.io/organizations/diggingforfire-github/rules?qprofile=AVzwrtCqgIkbjTX1x8Iv&activation=true. Try to implement as many as you can without breaking the existing tests. Gotta catch em all!
+* All existing tests cannot be changed and they must pass. Beyond this, feel free to make any changes!
+* Starting tips:
