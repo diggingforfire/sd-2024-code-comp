@@ -1,0 +1,14 @@
+[
+{
+    "model": "pet.pet",
+    "pk": 2,
+    "fields": {
+        "name": "McFloofz",
+        "health": 0,
+        "hunger": 100,
+        "happiness": 0,
+        "last_fed": "2024-10-23T12:17:06Z",
+        "last_played": "2024-10-23T12:17:06Z"
+    }
+}
+]

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pet.name }}'s Status</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .healthy {
+            animation: glow 1s infinite alternate;
+            color: green;
+        }
+        .unhealthy {
+            animation: evil 1s infinite alternate;
+            color: red;
+        }
+        .neutral {
+            opacity: 1;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;  /* Horizontally center */
+            align-items: center;      /* Vertically center */
+            height: 100vh;            /* Full height of the viewport */
+            text-align: center;       /* Optional: center text */
+            flex-direction: column;   /* Stack content vertically */
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px green;
+            }
+            to {
+                box-shadow: 0 0 20px lime;
+            }
+        }
+        @keyframes evil {
+            from {
+                box-shadow: 0 0 10px darkred;
+            }
+            to {
+                box-shadow: 0 0 20px red;
+            }
+        }
+        #pet-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ pet.name }}'s Status</h1>
+
+        <!-- Pet image with a class for visual feedback -->
+        <div id="pet-image" class="neutral">
+            🐶  <!-- Placeholder for your pet -->
+        </div>
+
+        <p>Health: <span id="health">{{ pet.health }}</span> / 100</p>
+        <p>Hunger: <span id="hunger">{{ pet.hunger }}</span> / 100</p>
+        <p>Happiness: <span id="happiness">{{ pet.happiness }}</span> / 100</p>
+
+        <h2>Actions</h2>
+        <button id="feed-btn">Feed {{ pet.name }}</button>
+        <button id="play-btn">Play with {{ pet.name }}</button>
+
+        <p id="status-message"></p>
+
+        <script>
+            // Function to handle updates on the UI
+            function updatePetStats(response) {
+                $('#health').text(response.health);
+                $('#hunger').text(response.hunger);
+                $('#happiness').text(response.happiness);
+
+                // Visual feedback based on health
+                var petImage = $('#pet-image');
+                var status = $('#status-message');
+                var health = response.health;
+
+                petImage.removeClass('healthy unhealthy neutral');
+                status.removeClass("healthy unhealthy neutral");
+
+                if (health >= 80) {
+                    petImage.addClass('healthy');
+                    status.addClass('healthy');
+                    status.text(`Your pet seems OK`);
+                } else if (health >= 60) {
+                    petImage.addClass('neutral');
+                    status.text(`Your pet seems neutral`);
+                } else {
+                    petImage.addClass('unhealthy');
+                    status.addClass('unhealthy');
+                    status.text(`Your pet is in poor health!`);
+                }
+            }
+
+            // Poll the server every 5 seconds to get updated pet stats
+            function pollPetStats() {
+                $.ajax({
+                    url: "{% url 'get_pet_stats' %}",
+                    method: 'GET',
+                    success: function(response) {
+                        updatePetStats(response);
+                    }
+                });
+            }
+
+            // Start polling for updates every 5 seconds
+            setInterval(pollPetStats, 1000);
+
+            // Feed the pet using AJAX
+            $('#feed-btn').click(function() {
+                $.ajax({
+                    url: "{% url 'feed_pet' %}",
+                    method: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        updatePetStats(response);
+                    }
+                });
+            });
+
+            // Play with the pet using AJAX
+            $('#play-btn').click(function() {
+                $.ajax({
+                    url: "{% url 'play_with_pet' %}",
+                    method: 'POST',
+                    data: {
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        updatePetStats(response);
+                    }
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>
