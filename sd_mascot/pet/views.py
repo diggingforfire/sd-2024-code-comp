@@ -60,7 +60,7 @@ def calculate_health_decay(pet):
 
     return pet
 
-def get_pet_stats(request):
+def get_pet_stats(_):
     pet = update_pet_stats()
     return JsonResponse(pet)
 
