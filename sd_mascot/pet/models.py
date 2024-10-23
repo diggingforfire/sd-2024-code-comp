@@ -1,19 +1,20 @@
+from datetime import datetime, timezone
 from enum import Enum
 
+import django
 from django.db import models
-from django.utils import timezone
 
 class Pet(models.Model):
     name = models.CharField(max_length=100)
     health = models.IntegerField(default=100)
     hunger = models.IntegerField(default=0)
     happiness = models.IntegerField(default=100)
-    last_fed = models.DateTimeField(default=timezone.now)
-    last_played = models.DateTimeField(default=timezone.now)
+    last_fed = models.DateTimeField(default=django.utils.timezone.now)
+    last_played = models.DateTimeField(default=django.utils.timezone.now)
 
-    def feed(self):
-        self.hunger = max(0, self.hunger - 20)
-        self.last_fed = timezone.now()
+    def feed(self, amount=20):
+        self.hunger = max(0, self.hunger - amount)
+        self.last_fed = datetime.now(timezone.utc)
 
         self.decay_health()
         self.regen_health()
@@ -21,7 +22,7 @@ class Pet(models.Model):
         self.save()
 
     def increase_hunger(self):
-        time_since_fed = (timezone.now() - self.last_fed).total_seconds() / 60
+        time_since_fed = (datetime.now(timezone.utc)- self.last_fed).total_seconds() / 60
         self.hunger = min(100, self.hunger + round(time_since_fed) * 5)
 
         self.decay_health()
@@ -29,9 +30,9 @@ class Pet(models.Model):
 
         self.save()
 
-    def play(self):
-        self.happiness = min(100, self.happiness + 20)
-        self.last_played = timezone.now()
+    def play(self, amount=20):
+        self.happiness = min(100, self.happiness + amount)
+        self.last_played = datetime.now(timezone.utc)
 
         self.decay_health()
         self.regen_health()
@@ -39,7 +40,7 @@ class Pet(models.Model):
         self.save()
 
     def decrease_happiness(self):
-        time_since_played = (timezone.now() - self.last_played).total_seconds() / 60
+        time_since_played = (datetime.now(timezone.utc) - self.last_played).total_seconds() / 60
         self.happiness = max(0, self.happiness - round(time_since_played) * 5)
 
         self.decay_health()
