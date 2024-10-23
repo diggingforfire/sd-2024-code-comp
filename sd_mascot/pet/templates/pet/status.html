@@ -111,7 +111,7 @@
             // Poll the server every second to get updated mascot stats
             function pollMascotState() {
                 $.ajax({
-                    url: "{% url 'get_mascot_state' %}",
+                    url: "{% url 'update_mascot_state' %}",
                     method: 'GET',
                     success: function(response) {
                         updatePetStats(response);
