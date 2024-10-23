@@ -16,6 +16,7 @@ def sd_mascot_props():
             'health': sd_mascot().health,
             'hunger': sd_mascot().hunger,
             'happiness': sd_mascot().happiness,
+            'health_state': sd_mascot().health_state.name,
             'name': sd_mascot().name,
         }
 

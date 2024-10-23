@@ -1,3 +1,5 @@
+from enum import Enum
+
 from django.db import models
 from django.utils import timezone
 
@@ -55,3 +57,16 @@ class Pet(models.Model):
     def regen_health(self):
         if self.hunger < 30 and self.happiness > 70:
             self.health = min(100, self.health + 5)
+
+    @property
+    def health_state(self):
+        if self.health >= 80:
+            return HealthState.OK
+        if self.health >= 50:
+            return HealthState.NEUTRAL
+        return HealthState.BAD
+
+class HealthState(Enum):
+    OK = 1
+    NEUTRAL = 2
+    BAD = 3

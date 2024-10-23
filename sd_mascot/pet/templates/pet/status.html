@@ -90,15 +90,16 @@
                 var petImage = $('#pet-image');
                 var status = $('#status-message');
                 var health = response.health;
-
+                var health_state = response.health_state;
+                
                 petImage.removeClass('healthy unhealthy neutral');
                 status.removeClass("healthy unhealthy neutral");
 
-                if (health >= 80) {
+                if (health_state === 'OK') {
                     petImage.addClass('healthy');
                     status.addClass('healthy');
                     status.text(`Your pet seems OK`);
-                } else if (health >= 60) {
+                } else if (health_state === 'NEUTRAL') {
                     petImage.addClass('neutral');
                     status.text(`Your pet seems neutral`);
                 } else {
