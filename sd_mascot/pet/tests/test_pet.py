@@ -36,7 +36,7 @@ def test_decay_health_not_happy():
     assert pet.health == 16
 
 @pytest.mark.parametrize("health,expected_state", [
-    (100, HealthState.OK),
+    (100, HealthState.AMAZEBALLS),
     (90, HealthState.OK),
     (80, HealthState.OK),
     (79, HealthState.NEUTRAL),

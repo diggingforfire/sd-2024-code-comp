@@ -61,6 +61,8 @@ class Pet(models.Model):
 
     @property
     def health_state(self):
+        if self.health == 100:
+            return HealthState.AMAZEBALLS
         if self.health >= 80:
             return HealthState.OK
         if self.health >= 50:
@@ -68,6 +70,7 @@ class Pet(models.Model):
         return HealthState.BAD
 
 class HealthState(Enum):
+    AMAZEBALLS = 0
     OK = 1
     NEUTRAL = 2
     BAD = 3
